@@ -9,7 +9,7 @@
 **Authors:**
 * **Claudia Franceschini** &nbsp;([claudia.franceschini@phd.unipd.it](mailto:claudia.franceschini@phd.unipd.it))
 * **Sophie Grace Parolin** &nbsp;([sophiegrace.parolin@phd.unipd.it](mailto:sophiegrace.parolin@phd.unipd.it))
-* **Teresa Secco** &nbsp;([teresa.secco@phd.unipd.it](mailto:teresa.secco@phd.unipd.it))
+* **Teresa Secco** &nbsp;([teresa.secco@phd.unipd.it](mailto:teresa.secco@unive.it))
 
 *Department of Statistical Sciences, University of Padua*  
 *Course in Statistical Models — Ph.D. in Statistical Sciences*
@@ -153,4 +153,4 @@ The scripts and models are executed in **R (>= 4.4)**. Key packages include:
 For inquiries regarding the code, methodology, or results:
 * **Claudia Franceschini**: [claudia.franceschini@phd.unipd.it](mailto:claudia.franceschini@phd.unipd.it)
 * **Sophie Grace Parolin**: [sophiegrace.parolin@phd.unipd.it](mailto:sophiegrace.parolin@phd.unipd.it)
-* **Teresa Secco**: [teresa.secco@phd.unipd.it](mailto:teresa.secco@phd.unipd.it)
+* **Teresa Secco**: [teresa.secco@phd.unipd.it](mailto:teresa.secco@unive.it)

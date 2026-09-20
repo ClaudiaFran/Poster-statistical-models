@@ -1,0 +1,689 @@
+%==============================================================================
+% A1 POSTER — Bayesian spatio-temporal models for Italian municipal migration
+% Department of Statistical Sciences, University of Padua
+%==============================================================================
+
+\documentclass[final]{beamer}
+
+\usepackage[
+  orientation=portrait,
+  size=a1,
+  scale=1.18
+]{beamerposter}
+
+%------------------------------------------------------------------------------
+% Packages
+%------------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\newcommand{\gap}{\vspace{1em}}
+\usepackage{tikz}
+\usepackage{qrcode}
+\usepackage{hyperref}
+
+%------------------------------------------------------------------------------
+% Geometry / spacing
+%------------------------------------------------------------------------------
+\setlength{\paperwidth}{59.4cm}
+\setlength{\paperheight}{84.1cm}
+
+\setbeamersize{
+  text margin left=1.4cm,
+  text margin right=1.4cm
+}
+
+\setlength{\columnsep}{0.95cm}
+\setlength{\columnseprule}{0pt}
+
+%------------------------------------------------------------------------------
+% University of Padua inspired palette
+%------------------------------------------------------------------------------
+\definecolor{padua}{RGB}{155,0,20}
+\definecolor{paduaDark}{RGB}{110,0,15}
+\definecolor{lightgray}{RGB}{246,246,248}
+\definecolor{midgray}{RGB}{90,90,90}
+
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{structure}{fg=padua}
+\setbeamercolor{alerted text}{fg=padua}
+
+\setbeamercolor{block title}{fg=white,bg=padua}
+\setbeamercolor{block body}{fg=black,bg=lightgray}
+
+\setbeamercolor{block title alerted}{fg=white,bg=paduaDark}
+\setbeamercolor{block body alerted}{fg=black,bg=white}
+
+\setbeamertemplate{navigation symbols}{}
+
+%------------------------------------------------------------------------------
+% Fonts
+%------------------------------------------------------------------------------
+\setbeamerfont{title}{size=\huge,series=\bfseries}
+\setbeamerfont{author}{size=\Large}
+\setbeamerfont{institute}{size=\large}
+\setbeamerfont{block title}{size=\Large,series=\bfseries}
+\setbeamerfont{block body}{size=\normalsize}
+\setbeamerfont{caption}{size=\footnotesize}
+
+%------------------------------------------------------------------------------
+% Short helper commands
+%------------------------------------------------------------------------------
+\newcommand{\model}[1]{\textbf{#1}}
+\newcommand{\smallgap}{\vspace{0.25cm}}
+\newcommand{\microgap}{\vspace{0.12cm}}
+
+%------------------------------------------------------------------------------
+% Poster metadata
+%------------------------------------------------------------------------------
+\title{Bayesian spatio-temporal modeling of net migration across Italian municipalities}
+
+\author{C. Franceschini \and S.G. Parolin \and T. Secco}
+
+%\institute{
+%Department of Statistical Sciences, University of Padua
+%}
+
+\date{}
+
+%==============================================================================
+
+\begin{document}
+\begin{frame}[t]
+
+%------------------------------------------------------------------------------
+% LOGO + QR CODE -- overlay, non occupano spazio
+%------------------------------------------------------------------------------
+\begin{tikzpicture}[remember picture,overlay]
+
+  % Logo dipartimento -- alto a destra
+  \node[
+    anchor=north east,
+    xshift=-0.65cm,
+    yshift=-0.5cm
+  ] at (current page.north east)
+  {
+    \includegraphics[width=0.15\textwidth]
+    {Dipartimento_Scienze_statistiche.png}
+  };
+% QR code -- alto a sinistra
+\node[
+  anchor=north west,
+  xshift=0.8cm,
+  yshift=-0.75cm,
+  draw=padua,
+  line width=1.5pt,
+  rounded corners=3pt,
+  inner sep=0.12cm
+] (qr) at (current page.north west)
+{
+  \includegraphics[width=0.08\textwidth]
+  {qrcode.jpeg}
+};
+
+% Titolo QR
+\node[
+  anchor=south,
+  yshift=-0.12cm,
+  text=padua
+] at (qr.north)
+{
+  {\small\bfseries Learn more}
+};
+\end{tikzpicture}
+
+%------------------------------------------------------------------------------
+% TITLE AREA
+%------------------------------------------------------------------------------
+\begin{center}
+\vspace{-1cm}
+{\fontsize{45}{45}\selectfont\bfseries\color{padua}
+Bayesian spatio-temporal modeling of \\ net migration across Italian municipalities\par}
+
+\vspace{0.5cm}
+
+{\fontsize{28}{30}\selectfont\bfseries\color{paduaDark}
+Associations, spatio-temporal structure, and territorial heterogeneity\par}
+
+\vspace{0.5cm}
+
+{\fontsize{20}{22}\selectfont
+C. Franceschini
+\qquad
+S.G. Parolin
+\qquad
+T. Secco\par}
+
+\end{center}
+
+\vspace{0.10cm}
+\hrule height 1.5pt
+\vspace{0.25cm}
+
+
+%==============================================================================
+% THREE-COLUMN LAYOUT
+%==============================================================================
+
+\begin{columns}[t,totalwidth=\textwidth]
+
+%==============================================================================
+% COLUMN 1: EMPIRICAL SETTING, PREDICTORS & VALIDATION STRATEGY
+%==============================================================================
+\begin{column}{0.324\textwidth}
+
+%------------------------------------------------------------------------------
+\begin{block}{1. Italian municipal net migration}
+
+\justifying
+We investigate the spatio-temporal dynamics of \textbf{municipal net migration in Italy} using a comprehensive nationwide panel spanning 16 consecutive years:
+\[
+S = 7{,}896 \text{ municipalities}, \qquad T = 16 \text{ years (2004--2019)},
+\]
+\[
+N = 126{,}336 \text{ municipality--year observations}.
+\]
+The response is the municipal \textbf{net migration rate per $1{,}000$ residents},
+globally standardized before model fitting:
+\[
+y_{st} = 1{,}000 \times \frac{\text{Net Migration}_{st}}{\text{Resident Population}_{st}}.
+\]
+
+%This demographic normalization prevents high-density metropolitan areas from dominating the variance structure purely due to population scale.
+
+\vspace{0.15cm}
+\begin{center}
+  \includegraphics[width=0.95\linewidth]{Poster_figures/raw_migration_map_comuni_en.png}
+  \vspace{0.15cm}
+  \parbox{0.96\linewidth}{\footnotesize \textit{Figure 1: Observed municipal net migration rate per $1{,}000$ residents across Italian municipalities in 2004, 2007, 2012, and 2017. %Highlights structural North--South disparities, depopulation of inland mountain belts, and the nationwide contraction following the 2008 crisis.
+  }}
+\end{center}
+
+\gap
+\justifying
+\textbf{Covariates ($\mathbf{x}_{st}$):} 10 %standardized 
+covariates covering 
+\begin{itemize}
+    \item \textbf{labor-market conditions:}
+    employment and unemployment rates;
+
+\item \textbf{demographic and economic dynamics:}
+mean age, change in the foreign-resident share, log-differences in income, population density, and GDP;
+
+    \item \textbf{territorial inequality and accessibility:}
+    income inequality, landslide exposure, access to essential services.
+\end{itemize}
+\end{block}
+
+\smallgap
+
+%------------------------------------------------------------------------------
+\begin{block}{2. Research questions}
+
+\justifying
+\begin{itemize}
+
+\item How are \textbf{demographic, economic, and territorial characteristics} associated with Italian municipal net migration?
+
+\item What \textbf{local spatial variation and temporal persistence} emerge in net migration at the italian municipal scale?
+
+\item Does allowing for \textbf{local heterogeneity} reveal spatially varying covariate associations \textbf{beyond a common national specification}?
+
+\end{itemize}
+
+\end{block}
+\smallgap
+%------------------------------------------------------------------------------
+
+\begin{block}{3. Areal topology and Leroux spatial precision}
+
+\justifying
+Municipalities form a \textbf{highly granular and irregular areal system}. %: nearby areas may share similar migration dynamics, while each municipality is repeatedly \textbf{observed over time}. 
+\textbf{Spatial dependence} is represented through a binary \textbf{contiguity graph}, on harmonized 2024 municipal borders:
+
+\[
+W_{ij}=
+\begin{cases}
+1, & i \text{ and } j \text{ share a boundary},\\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+The graph contains $|V|=7{,}896$ municipalities and
+$|E|=22{,}609$ undirected edges. \\
+
+
+%The network comprises $|V| = 7{,}896$ vertices and $|E| = 45{,}218$ shared borders.\\
+
+\noindent We adopt the \textbf{Leroux CAR specification} for the spatial precision matrix:
+\[
+Q_S(\rho)=\rho(D-W)+(1-\rho)I_S,
+\qquad \rho\in(0,1).
+\] 
+with 
+%nota: Nel modello finale abbiamo \rho \sim \mathrm{Beta}(6,1) e una beta ha supporto (0,1)
+\[
+\qquad D_{ii} = \sum_j W_{ij}, \qquad \bar{d} = 5.73 \text{ neighbors}.
+\]
+
+%No artificial connections are introduced for geographically isolated municipalities.
+\textbf{Key properties:}
+\begin{itemize}
+
+ \item as $\rho\rightarrow0$, the spatial effects approach independence,
+  while increasing $\rho$ strengthens spatial smoothing;
+
+  \item for $\rho\in(0,1)$, $Q_S(\rho)$ is positive definite and defines a
+  proper CAR prior;
+
+  \item as $\rho\rightarrow1$, the model approaches the intrinsic CAR
+  specification, for which $D-W$ is singular;
+
+  \item 14 municipalities have no terrestrial neighbors and are retained as
+  isolated components, with no artificial marine links.
+
+\end{itemize}
+
+\textbf{Temporal dependence} is introduced through an \textbf{autoregressive evolution} of the spatial random effects.
+
+\smallgap
+\end{block}
+
+%------------------------------------------------------------------------------
+\begin{block}{References}
+
+\scriptsize
+\justifying
+\begin{multicols}{2}
+
+\textbf{Mozdzen et al.} (2022).
+Bayesian modeling and clustering for spatio-temporal areal data:
+An application to Italian unemployment.
+\textit{Spatial Statistics}, 52, 100715.
+
+\textbf{Orozco-Acosta, Adin \& Ugarte} (2021).
+Scalable Bayesian modeling for smoothing disease risks in large spatial
+data sets using INLA.
+\textit{Spatial Statistics}, 41, 100496.
+
+\textbf{Orozco-Acosta, Adin \& Ugarte} (2023).
+Big problems in spatio-temporal disease mapping: methods and software.
+\textit{Computer Methods and Programs in Biomedicine}, 231, 107403.
+
+\textbf{Rue, Martino \& Chopin} (2009).
+Approximate Bayesian inference for latent Gaussian models by using
+integrated nested Laplace approximations.
+\textit{JRSS-B}, 71(2), 319--392.
+
+\end{multicols}
+
+\end{block}
+
+\end{column}
+
+%==============================================================================
+% COLUMN 2: MODELING BACKBONE & COMPARATIVE EVALUATION
+%==============================================================================
+\begin{column}{0.324\textwidth}
+%------------------------------------------------------------------------------
+\begin{block}{4. The global spatio-temporal backbone}
+
+The global homogeneous model decomposes the standardized response into
+common covariate effects, a \textbf{national temporal trend}, a
+spatio-temporal latent field, and Gaussian noise:
+\[
+y_{st}^*
+=
+\alpha
++
+\mathbf{x}_{st}^{*\prime}\bm{\beta}
++
+f_t
++
+w_{st}
++
+\epsilon_{st},
+\qquad
+\epsilon_{st}\sim\mathcal{N}(0,\sigma_\epsilon^2).
+\]
+
+The \textbf{common temporal component} follows a first-order random walk:
+\[
+f_t-f_{t-1}
+\sim
+\mathcal{N}(0,\tau_{\mathrm{RW1}}^2),
+\qquad t=2,\ldots,T,
+\qquad
+\sum_{t=1}^{T}f_t=0.
+\]
+
+\microgap
+\textbf{Spatio-temporal latent field $\mathbf{w}_t$:}
+\[
+\mathbf{w}_1
+\sim
+\mathcal{N}\!\left(
+\mathbf{0},
+\tau_{ST}^2Q_S(\rho)^{-1}
+\right),
+\]
+\[
+\mathbf{w}t\mid\mathbf{w}{t-1}
+\sim
+\mathcal{N}\!\left(
+\xi\mathbf{w}_{t-1},
+\tau_{ST}^2Q_S(\rho)^{-1}
+\right),
+\qquad t=2,\ldots,T.
+\]
+
+This yields the separable Kronecker-structured joint precision for
+$\mathbf{w}\in\mathbb{R}^{ST}$:
+\[
+Q_{ST}(\rho,\xi,\tau_{ST}^2)
+=
+\frac{1}{\tau_{ST}^2}
+Q_T(\xi)\otimes Q_S(\rho),
+\]
+where $Q_T(\xi)$ is the sparse tridiagonal precision induced by the first-order autoregressive evolution.
+
+%The $IT=126{,}336$-dimensional latent field is handled through sparse precision-matrix factorizations.
+
+\vspace{0.5cm}
+\textbf{Two matched computational implementations:}
+\begin{itemize}
+  \item \model{M1}: Integrated Nested Laplace Approximation (INLA);
+  \item \model{M2}: custom Metropolis-within-Gibbs sampler adapted from
+  Mozdzen et al.\ (2022) (20k iter., 10k burn-in, thin 10).
+\end{itemize}
+
+\vspace{0.5cm}
+Following Mozdzen et al.\ (2022), fixed effects have
+$\mathcal{N}(0,1)$ priors; the added post-2008 effect uses the same prior.
+$\sigma_\epsilon^2,\tau_{ST}^2\sim\mathrm{IG}(3,2)$;
+$\rho\sim\mathrm{Beta}(6,1)$;
+$\xi\sim\mathrm{Unif}(-1,1)$.
+\end{block}
+
+\smallgap
+
+%------------------------------------------------------------------------------
+\begin{block}{5. Alternative modeling strategies}
+
+\justifying
+%We benchmark the global backbone against three alternatives:
+
+\begin{itemize}
+\item \textbf{Partitioned model (INLA) (\model{M3} Overlap, \model{M4} Disjoint;
+Orozco-Acosta et al., 2023):}\\
+
+\noindent 107 province-specific models allow fixed effects and spatio-temporal
+parameters to vary locally. \model{M3} adds first-order neighboring
+municipalities to reduce boundary effects; \model{M4} uses disjoint provinces.
+
+\item \textbf{Bayesian nonparametric clustering (\model{M5 BSTC-DP}; Mozdzen et al., 2022):}\\
+
+\noindent municipal profiles $\bm{\phi}_s=(\bm{\beta}_s,\xi_s)$ are clustered through
+\(\bm{\phi}_s\mid G\sim G,
+G\sim\mathrm{DP}(\alpha_{\mathrm{DP}},G_0),
+\)
+where $\alpha_{\mathrm{DP}}\sim\mathrm{Gamma}(3,2)$ controls cluster concentration and
+$G_0=\mathcal{N}(\mathbf{0},I)\times U(-1,1)$ is the base distribution, allowing data-driven groups without administrative boundaries.
+
+\item \textbf{Administrative hierarchical baseline (\model{M6}):}\\
+\noindent IID region and province effects plus a national AR(1) temporal effect,
+without using the municipal adjacency graph $W$.
+
+\end{itemize}
+
+\end{block}
+%------------------------------------------------------------------------------
+\begin{block}{6. Out-of-sample model comparison}
+
+\justifying
+Two rolling-origin \textbf{one-year-ahead evaluations}:
+$2004$--$2017\!\rightarrow\!2018$ and
+$2004$--$2018\!\rightarrow\!2019$
+($N_{\mathrm{test}}=15{,}792$).
+
+\vspace{0.5cm}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{RMSE} & \textbf{MAE} &
+\textbf{Cov$_{95}$} & \textbf{IS$_{95}$} &
+\textbf{Time} & \textbf{MaxRSS} \\
+\midrule
+\model{M1} INLA Global   & \textbf{13.69} & \textbf{8.81} & 0.961 & 84.65 & 00:18:54 & 107.9 GiB \\
+\model{M2} MCMC Global   & 13.69 & 8.82 & 0.961 & 84.63 & 05:48:07 & 2.6 GiB \\
+\model{M3} Overlap INLA  & 13.96 & 9.09 & 0.962 & \textbf{77.09} & 107 jobs & -- \\
+\model{M4} Disjoint INLA & 14.20 & 9.34 & 0.962 & 77.60 & 107 jobs & -- \\
+\model{M5} BSTC-DP       & 17.18 & 10.83 & 0.931 & 99.30 & 06:40:10 & 4.2 GiB \\
+\model{M6} Admin IID     & 13.77 & 8.90 & \textbf{0.972} & 88.33 & 00:01:10 & 1.9 GiB \\
+\bottomrule
+\end{tabular}
+
+{\scriptsize\textit{
+Predictive metrics pooled over both folds; computational costs refer to the 2019 fold.}}
+
+\vspace{0.5cm}
+\justifying
+\normalsize
+\begin{itemize}
+  \item \model{M1} and \model{M2} give nearly identical point accuracy, with the lowest RMSE and MAE;
+  \item \model{M3}/\model{M4} achieve the lowest IS$_{95}$, indicating the
+  best sharpness--coverage trade-off;
+  \item \model{M5} shows poorer out-of-sample accuracy and a highly fragmented posterior partition ($K\approx130$);
+  \item \model{M6} reaches the highest coverage, but with a higher IS$_{95}$.
+\end{itemize}
+\end{block}
+
+\smallgap
+%------------------------------------------------------------------------------
+\begin{block}{Conclusions}
+
+\begin{itemize}
+
+  %\item \textbf{Substantive:}
+  %Municipal net migration shows interpretable \textbf{covariate associations} together with substantial \textbf{latent spatial dependence} ($\rho\approx0.77$) and \textbf{temporal persistence} ($\xi\approx0.61$).
+
+  %\item \textbf{Methodological:}
+  %The global CAR$\times$AR(1) model gives the best point prediction, whereas the partitioned models provide sharper predictive intervals and reveal local heterogeneity.
+
+
+\item \textbf{Covariate associations:}
+the strongest associations with net migration are positive for employment and population density, and negative for accessibility deficits and unemployment.
+
+\item \textbf{Spatio-temporal structure:}
+persistent spatial patterns emerge, with substantial spatial dependence ($\rho \approx 0.77$) and temporal persistence ($\xi \approx 0.61$).
+\item \textbf{Territorial heterogeneity:}
+covariate effects vary across provinces in both magnitude and, for some predictors, sign.
+
+
+\end{itemize}
+
+\end{block}
+\end{column}
+
+%==============================================================================
+% COLUMN 3: CHOSEN MODEL (M1), DIAGNOSTICS & POLICY IMPLICATIONS
+%==============================================================================
+\begin{column}{0.324\textwidth}
+
+%------------------------------------------------------------------------------
+\begin{block}{7. Associations with net migration}
+
+\justifying
+M1/M2 estimate common national covariate associations, while municipality-level residual variation is captured by a spatio-temporal field with common dependence parameters. %It achieves the lowest pooled RMSE and MAE.
+
+%The global model (\model{M1}/\model{M2}) is used as the \textbf{national reference}, attaining the lowest pooled RMSE and MAE while retaining the full municipal spatio-temporal structure.
+
+\microgap
+\begin{center}
+  \includegraphics[width=0.98\linewidth]
+  {Poster_figures/m1_rw1_coefficients_intervals.png}
+  \vspace{-0.1cm}
+  
+  \parbox{0.96\linewidth}{
+  \footnotesize
+  \textit{Figure 2: Posterior 95\% credible intervals for \model{M1} fixed effects.}
+  }
+\end{center}
+
+\microgap
+\justifying
+\textbf{Substantive interpretation of the fixed effects:}
+
+\begin{itemize}
+    \item \textbf{Attraction factors:}
+    employment rate shows the strongest positive association with net migration
+    ($\hat{\beta}=+0.250$), followed by population-density growth
+    ($\hat{\beta}=+0.074$).
+
+    \item \textbf{Repulsion factors:}
+    service inaccessibility ($\hat{\beta}=-0.053$), changes in the foreign-resident share
+    ($\hat{\beta}=-0.042$), and unemployment ($\hat{\beta}=-0.026$)
+    are associated with lower net migration.
+
+    \item \textbf{Limited evidence of association:}
+unemployment and GDP growth show 95\% credible intervals overlapping zero.
+\end{itemize}
+
+\end{block}
+
+\smallgap
+\begin{block}{8. Spatio-temporal structure and residual diagnostics}
+
+\begin{center}
+  \includegraphics[width=0.98\linewidth]
+  {Poster_figures/m1_latent_field_municipal.png}
+  \vspace{-0.1cm}
+
+  \parbox{0.96\linewidth}{
+  \footnotesize
+  \textit{Figure 3: Posterior mean of the latent field $\mathbf{w}_t$ at municipal level, by year (M1/M2).}
+  }
+\end{center}
+
+\vspace{0.3cm}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{0.92}
+
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Parameter} & \textbf{Mean} & \textbf{SD} & \textbf{2.5\%} & \textbf{97.5\%} \\
+\midrule
+Spatial dependence $\rho$ & \textbf{0.7774} & 0.0263 & 0.7197  & 0.8224  \\
+Temporal persistence $\xi$ & \textbf{0.6118} & 0.0144 & 0.5825  & 0.6392  \\
+Latent field variance $\tau^2_{ST}$ & 0.3623          & 0.0268 & 0.3139  & 0.4190  \\
+Residual variance $\sigma^2_\epsilon$ & 0.6689          & 0.0086 & 0.6521  & 0.6860  \\
+Random walk variance $\tau^2_{RW1}$ & 0.1808         & 0.0809 & 0.0562 & 0.3636 \\
+\bottomrule
+
+\end{tabular}
+
+{\scriptsize\textit{
+Common spatio-temporal parameters (M1/M2).}}
+
+\renewcommand{\arraystretch}{1}
+\microgap
+\justifying
+\textbf{Latent spatial structure and residual diagnostics:}
+
+\begin{itemize}
+
+\item \textbf{Persistent spatial pattern:}
+the latent field shows marked territorial clustering, with spatial patterns
+that persist but evolve over time.
+
+\item \textbf{Spatial residual adequacy:}
+residual Moran's $I$ remains close to zero and slightly negative
+($-0.07$ to $-0.03$), indicating no remaining positive spatial autocorrelation.
+
+\item \textbf{Temporal residual stability:}
+annual mean residuals remain close to zero throughout the study period,
+with no marked residual temporal trend.
+
+\end{itemize}
+
+\end{block}
+
+%------------------------------------------------------------------------------
+
+\begin{block}{9. Local spatial heterogeneity}
+\begin{center}
+  \includegraphics[width=0.98\linewidth]
+  {Poster_figures/M3_selected_local_effects_5x1.png}
+  \vspace{-0.15cm}
+
+  \parbox{0.96\linewidth}{
+  \scriptsize
+  \textit{Figure 4: Posterior means of selected province-specific coefficients
+ from the M3 overlap fit.}
+  }
+\end{center}
+
+\microgap
+\justifying
+\textbf{Beyond the global coefficients:}
+\begin{itemize}
+
+  \item \textbf{Employment} remains predominantly positively associated with
+  net migration, but its magnitude varies markedly across provinces.
+
+  \item Several associations \textbf{vary locally in both magnitude and sign}, revealing heterogeneity beyond a single national coefficient.
+
+\end{itemize}
+
+\end{block}
+
+\smallgap
+%------------------------------------------------------------------------------
+\begin{block}{What's next?}
+\justifying
+\begin{itemize}
+
+\item \textbf{Variable selection:}
+learn relevant covariates rather than prespecifying them;
+
+\item \textbf{Robust tails modeling:}
+quantile or heavy-tailed space--time models to better capture extreme migration dynamics;
+
+\item \textbf{DP clustering refinement:}
+use heavy-tailed base distributions or Gaussian-mixture structure learned from
+partition-specific coefficients to inform the clustering prior.
+
+\end{itemize}
+
+\end{block}
+\end{column}
+\end{columns}
+
+%==============================================================================
+% FOOTER
+%==============================================================================
+
+\vfill
+\hrule height 1pt
+\vspace{0.20cm}
+
+\begin{center}
+\footnotesize
+\textbf{Contacts:}  claudia.franceschini@phd.unipd.it \quad$\cdot$\quad sophiegrace.parolin@phd.unipd.it \quad$\cdot$\quad teresa.secco@unive.it
+\qquad\qquad
+\textbf{Department of Statistical Sciences, University of Padua}
+\end{center}
+
+\end{frame}
+\end{document}

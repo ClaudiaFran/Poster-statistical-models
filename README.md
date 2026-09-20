@@ -40,9 +40,7 @@ standardized using common national means and standard deviations.
 ### Main Research Questions
 
 1. How are demographic, economic, and territorial characteristics associated with Italian municipal net migration?
-
-2. What local spatial variation and temporal persistence emerge in net migration at the italian municipal scale?
-
+2. What spatial dependence and temporal persistence characterize net migration at the Italian municipal scale?
 3. Does allowing for local heterogeneity reveal spatially varying covariate associations beyond a common national specification?
 ---
 
@@ -95,12 +93,12 @@ Q_{ST}(\rho, \xi, \tau_{ST}^2) = \frac{1}{\tau_{ST}^2} Q_T(\xi) \otimes Q_S(\rho
 
 ### 3. Model Benchmark & Strategies
 We benchmark the global backbone against alternative paradigms:
-* **M1 (INLA Global)**: Fast approximate Bayesian inference via Integrated Nested Laplace Approximations with an RW(1) trend and AR(1)$\times$CAR field.
+* **M1 (INLA Global)**: Fast approximate Bayesian inference via Integrated Nested Laplace Approximations with a national RW1 temporal component and an AR(1)$\times$CAR spatio-temporal latent field.
 * **M2 (MCMC Global)**: Custom Metropolis-within-Gibbs sampler adapted from Mozdzen et al. (2022) (20,000 iterations, 10,000 burn-in, thinning = 10).
 * **M3 (Partitioned Overlap INLA)**: 107 province-specific submodels including first-order neighbouring municipalities to reduce boundary effects (Orozco-Acosta et al., 2023).
 * **M4 (Partitioned Disjoint INLA)**: 107 strictly disjoint provincial models.
-* **M5 (BSTC-DP Clustering)**: Bayesian nonparametric Dirichlet Process clustering on municipal parameters $\bm{\phi}_s = (\bm{\beta}_s, \xi_s)$ (Mozdzen et al., 2022).
-* **M6 (Administrative Hierarchical Baseline)**: Regional and provincial IID effects with a national AR(1) trend, without areal graph topology.
+* **M5 (BSTC-DP Clustering)**: Bayesian nonparametric Dirichlet Process clustering on municipal parameters $\boldsymbol{\phi}_s = (\boldsymbol{\beta}_s, \xi_s)$ (Mozdzen et al., 2022).
+* **M6 (Administrative Hierarchical Baseline)**: Regional and provincial IID random intercepts, together with national RW1 and scalar AR(1) temporal components, without municipal adjacency or CAR/Leroux spatial structure.
 ---
 
 ## 📊 Key Results & Findings
@@ -157,7 +155,7 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 │   │   ├── ...                           # M1 interpretative figures
 │   │   └── README.md
 │   │
-│   ├── M1_M6_Comparison/                 # Robustness comparison between territorial specifications
+│   ├── M1_M6_Comparison/                 # Robustness comparison across territorial and temporal specifications
 │   │   ├── m1_m6_coefficients.png        # Comparison of national covariate associations
 │   │   └── README.md
 │   │

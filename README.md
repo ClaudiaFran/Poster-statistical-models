@@ -121,7 +121,7 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 │   └── 17_moran_tasso_migratorio.png     # Trajectory of global Moran's I over time
 |
 ├── Poster.pdf                             # PDF document of the A1 poster
-├── main_01.tex                            # LaTeX Beamer source code for the A1 poster
+├── main_poster.tex                            # LaTeX Beamer source code for the A1 poster
 └── README.md                              # Project documentation
 ```
 

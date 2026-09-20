@@ -103,29 +103,33 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 ## 📁 Repository Structure
 
 ```plaintext
-├── Poster_figures/                        # Production-ready figures for the scientific poster
-│   ├── raw_migration_map_comuni_en.png   # Observed municipal rate maps (2004, 2007, 2012, 2017)
-│   ├── m1_rw1_coefficients_intervals.png # Fixed effects 95% credible intervals (M1 RW1)
-│   ├── m1_rw1_trajectory.png             # Estimated RW1 non-linear temporal trend (2004–2019)
-│   ├── m1_latent_field_municipal.png     # Annual municipal latent field posterior means
-│   ├── M3_selected_local_effects_5x1.png # Province-level local effect distributions (M3 Overlap)
-│   ├── covariate_correlations.png        # Regressors correlation matrix
-│   ├── m1_observed_vs_fitted.png         # In-sample predictive calibration
-│   └── variance_decomposition.png        # Variance components breakdown
-├── Figures/                               # Extended descriptive and exploratory figures (Italian)
-│   ├── 01_trend_reddito_regioni.png      # Regional per-capita taxable income trends
-│   ├── 08_mappa_tasso_regioni.png        # Regional net migration rate maps
-│   ├── 09_mappa_tasso_province.png       # Provincial net migration rate maps
-│   ├── 10_mappa_tasso_comuni.png         # Municipal net migration rate maps
-│   ├── 11_boxplot_tasso_urbanizzazione.png # Migration rate by DEGURBA classification
-│   └── 17_moran_tasso_migratorio.png     # Trajectory of global Moran's I over time
-|
-├── Poster.pdf                            # PDF document of the A1 poster
-├── main_poster.tex                       # LaTeX Beamer source code for the A1 poster
-└── README.md                             # Project documentation
-```
-
----
+├── Figures/                              # Figures for exploration, interpretation, and robustness analyses
+│   │
+│   ├── Explorative_Analysis/             # Exploratory analysis and motivation of modelling choices
+│   │   └── README.md
+│   │
+│   ├── M1/                               # Global spatio-temporal backbone model
+│   │   ├── ...                           # M1 interpretative figures
+│   │   └── README.md
+│   │
+│   ├── M1_M6_Comparison/                 # Robustness comparison between territorial specifications
+│   │   ├── m1_m6_coefficients.png        # Comparison of national covariate associations
+│   │   └── README.md
+│   │
+│   ├── M3/                               # Partitioned overlap model: local territorial heterogeneity
+│   │   ├── M3_hyperparameters_dependence.png
+│   │   ├── M3_hyperparameters_variance.png
+│   │   ├── M3_local_effects_first5_mean.png
+│   │   ├── M3_local_effects_first5_sign.png
+│   │   ├── M3_local_effects_second5_mean.png
+│   │   ├── M3_local_effects_second5_sign.png
+│   │   └── README.md
+│   │
+│   └── README.md                         # Overview and interpretation guide for all figure folders
+│
+├── Poster.pdf                            # Final A1 scientific poster
+├── main_poster.tex                       # LaTeX source code for the poster
+└── README.md                             # Main project documentation
 
 ## 💻 Computational Environment & Requirements
 

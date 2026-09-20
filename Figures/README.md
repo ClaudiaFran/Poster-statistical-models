@@ -25,10 +25,10 @@ over the full period 2004–2019.
 M1 combines:
 
 - common national covariate coefficients;
-- a national temporal component;
+- a national RW1 temporal component;
 - a municipal spatio-temporal latent field;
 - spatial dependence based on the municipal adjacency graph;
-- temporal persistence of the latent spatial field.
+- AR(1) temporal persistence of the latent spatial field.
 
 See the local `README.md` in the folder for figure-specific descriptions.
 
@@ -37,16 +37,20 @@ See the local `README.md` in the folder for figure-specific descriptions.
 ### `M1_M6_Comparison/`
 
 Contains figures comparing national covariate associations under two different
-territorial specifications:
+territorial and temporal specifications:
 
-- **M1_RW**, based on a municipal spatio-temporal latent field;
-- **M6_RW**, based on region and province random intercepts and national temporal
-  components.
+- **M1_RW**, combining a national RW1 temporal component with a municipal
+  spatio-temporal latent field based on the adjacency graph and evolving through
+  an AR(1) process;
+- **M6_RW**, replacing the municipal spatio-temporal field with region and
+  province random intercepts, together with national RW1 and scalar AR(1)
+  temporal components.
 
 Both models estimate common covariate coefficients across municipalities.
 
 The purpose of this comparison is to assess whether the main national associations
-are robust to a substantial change in the way territorial heterogeneity is represented.
+are robust to a substantial change in the representation of territorial and temporal
+heterogeneity.
 
 The comparison shows that several main associations retain the same direction across
 models, while the magnitude and uncertainty of some effects remain model-dependent.
@@ -87,8 +91,9 @@ The figure structure mirrors the main analytical goals of the project:
    Interpreted primarily through M1 and checked for robustness against M6.
 
 2. **Spatial and temporal structure**  
-   Interpreted through the global spatio-temporal field in M1, with M6 serving as a
-   simpler administrative benchmark.
+   Interpreted primarily through the municipal spatio-temporal field in M1, with
+   M6 serving as a simpler administrative benchmark with national temporal
+   components.
 
 3. **Territorial heterogeneity in the associations**  
    Investigated through M3, where regression coefficients and spatio-temporal
@@ -102,5 +107,5 @@ The figure structure mirrors the main analytical goals of the project:
 |---|---|
 | `Explorative_Analysis/` | Data exploration |
 | `M1/` | Interpretation of national associations and global spatio-temporal structure |
-| `M1_M6_Comparison/` | Robustness of national coefficients to territorial specification |
+| `M1_M6_Comparison/` | Robustness of national coefficients to territorial and temporal specification |
 | `M3/` | Local heterogeneity in effects and spatio-temporal parameters |

@@ -9,7 +9,7 @@
 **Authors:**
 * **Claudia Franceschini** &nbsp;([claudia.franceschini@phd.unipd.it](mailto:claudia.franceschini@phd.unipd.it))
 * **Sophie Grace Parolin** &nbsp;([sophiegrace.parolin@phd.unipd.it](mailto:sophiegrace.parolin@phd.unipd.it))
-* **Teresa Secco** &nbsp;([teresa.secco@phd.unipd.it](mailto:teresa.secco@unive.it))
+* **Teresa Secco** &nbsp;([teresa.secco@unive.it](mailto:teresa.secco@unive.it))
 
 *Department of Statistical Sciences, University of Padua*  
 *Course in Statistical Models — Ph.D. in Statistical Sciences*
@@ -130,6 +130,8 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 ├── Poster.pdf                            # Final A1 scientific poster
 ├── main_poster.tex                       # LaTeX source code for the poster
 └── README.md                             # Main project documentation
+
+---
 
 ## 💻 Computational Environment & Requirements
 

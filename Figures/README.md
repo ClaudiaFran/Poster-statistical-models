@@ -1,10 +1,8 @@
 # Figures
 
-This directory contains the main figures used to document the exploratory analysis,
-model interpretation, robustness checks, and local territorial heterogeneity for the
+This directory contains the main figures related to the exploratory analysis,
+model interpretation, robustness checks, and local territorial heterogeneity in the
 Italian municipal migration study.
-
-The figures are organised by analytical purpose and model specification.
 
 ---
 
@@ -15,12 +13,7 @@ The figures are organised by analytical purpose and model specification.
 Contains figures used to describe the data before model fitting and to motivate the
 main modelling choices.
 
-Typical contents include exploratory summaries of the response and covariates,
-temporal patterns, spatial structure, and checks used to motivate the treatment of
-non-stationarity and the inclusion of flexible temporal components.
-
-These figures are intended as **descriptive support for the modelling strategy**,
-rather than as inferential results.
+These figures are intended as **descriptive support for the modelling strategy**.
 
 ---
 
@@ -37,17 +30,14 @@ M1 combines:
 - spatial dependence based on the municipal adjacency graph;
 - temporal persistence of the latent spatial field.
 
-The figures in this folder are used to interpret the main national associations and
-the global spatio-temporal structure.
-
 See the local `README.md` in the folder for figure-specific descriptions.
 
 ---
 
 ### `M1_M6_Comparison/`
 
-Contains robustness figures comparing the national covariate associations estimated
-under two different territorial specifications:
+Contains figures comparing national covariate associations under two different
+territorial specifications:
 
 - **M1_RW**, based on a municipal spatio-temporal latent field;
 - **M6_RW**, based on region and province random intercepts and national temporal
@@ -55,14 +45,13 @@ under two different territorial specifications:
 
 Both models estimate common covariate coefficients across municipalities.
 
-The purpose of this comparison is not to identify a single preferred model, but to
-assess whether the main national associations are robust to a substantial change in
-the way territorial heterogeneity is represented.
+The purpose of this comparison is to assess whether the main national associations
+are robust to a substantial change in the way territorial heterogeneity is represented.
 
-The comparison shows that several main directions are stable across models, while
-the magnitude and uncertainty of some associations remain model-dependent.
+The comparison shows that several main associations retain the same direction across
+models, while the magnitude and uncertainty of some effects remain model-dependent.
 
-See the local `README.md` for the detailed interpretation.
+See the local `README.md` for a detailed interpretation.
 
 ---
 
@@ -72,7 +61,7 @@ Contains figures from the final 2004–2019 refit of the partitioned overlap mod
 
 M3 estimates local province-level models while including neighbouring municipalities
 from adjacent provinces during fitting in order to reduce artificial boundary
-effects. Only estimates corresponding to the core province are retained for the final
+effects. Only estimates corresponding to the core province are retained in the final
 national reconstruction.
 
 The figures describe:
@@ -83,7 +72,7 @@ The figures describe:
 - province-specific posterior means of covariate effects;
 - the posterior credibility of the local sign of each association.
 
-These figures are used to study **territorial heterogeneity in the covariate
+These figures are used to study **territorial heterogeneity in covariate
 associations**, complementing the common national coefficients estimated by M1.
 
 See the local `README.md` in the folder for a detailed interpretation of each figure.
@@ -105,36 +94,13 @@ The figure structure mirrors the main analytical goals of the project:
    Investigated through M3, where regression coefficients and spatio-temporal
    parameters are allowed to vary locally.
 
-The out-of-sample comparison is used to compare alternative model specifications on
-a common predictive basis. For interpretation, the relevant models are then refitted
-using the full 2004–2019 period.
-
----
-
-## Interpretation notes
-
-All reported covariate effects should be interpreted as **conditional associations**,
-not as causal effects.
-
-Posterior means describe the estimated direction and magnitude of an association,
-while 95% credible intervals quantify posterior uncertainty.
-
-For local M3 results, a positive or negative posterior mean does not by itself imply
-a credibly non-zero effect; the corresponding credible-sign maps should therefore be
-used to assess whether the 95% credible interval excludes zero.
-
-Differences between model specifications should not be attributed to a single model
-component in isolation, because the latent territorial and temporal structures differ
-jointly across models.
-
 ---
 
 ## Folder summary
 
 | Folder | Main purpose |
 |---|---|
-| `Explorative_Analysis/` | Data exploration and motivation of modelling choices |
+| `Explorative_Analysis/` | Data exploration |
 | `M1/` | Interpretation of national associations and global spatio-temporal structure |
 | `M1_M6_Comparison/` | Robustness of national coefficients to territorial specification |
 | `M3/` | Local heterogeneity in effects and spatio-temporal parameters |
-

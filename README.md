@@ -63,10 +63,24 @@ Q_S(\rho) = \rho(D - W) + (1 - \rho)I_S, \qquad \rho \in (0, 1), \quad D_{ii} = 
 The standardized municipal response is decomposed into fixed covariate effects, a **national temporal component**, a **spatio-temporal latent field**,
 and Gaussian residual error:
 ```math
-y_{st}^* = \alpha + \mathbf{x}_{st}^{*\prime}\bm{\beta} + f_t + w_{st} + \epsilon_{st}, \qquad \epsilon_{st} \sim \mathcal{N}(0, \sigma_\epsilon^2)
+y_{st}^*
+=
+\alpha
++
+\mathbf{x}_{st}^{*\prime}\boldsymbol{\beta}
++
+f_t
++
+w_{st}
++
+\epsilon_{st},
+\qquad
+\epsilon_{st}
+\sim
+\mathcal{N}(0,\sigma_\epsilon^2)
 ```
 
-* **Non-linear National Trend ($f_t$):** Modeled via an intrinsic first-order random walk with sum-to-zero constraint:
+* **National Temporal Component ($f_t$):** Modeled via an intrinsic first-order random walk with sum-to-zero constraint:
 ```math
 f_t - f_{t-1} \sim \mathcal{N}(0, \, \tau_{\mathrm{RW1}}^2), \qquad t=2,\ldots,T, \qquad \sum_{t=1}^T f_t = 0
 ```

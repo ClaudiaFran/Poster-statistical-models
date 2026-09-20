@@ -131,7 +131,9 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 ├── main_poster.tex                       # LaTeX source code for the poster
 └── README.md                             # Main project documentation
 
+
 ---
+
 
 ## 💻 Computational Environment & Requirements
 

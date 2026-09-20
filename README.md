@@ -141,6 +141,49 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 
 * **Territorial heterogeneity (M3):** The positive association between employment and net migration is broadly stable across provinces, although its magnitude varies locally. Several other covariates show substantially greater territorial heterogeneity, including changes in magnitude and, in some areas, in sign.
 
+### 4. Prior and Clustering Sensitivity Analyses
+
+Several sensitivity analyses were considered to assess how strongly the results,
+and especially the clustering behaviour of M5, depend on prior specification and
+on the definition of the cluster-specific parameter vector.
+
+* **Spatial-dependence prior:** The main specification uses
+  $\rho \sim \mathrm{Beta}(6,1)$, which places more prior mass on relatively
+  strong spatial dependence. As a sensitivity analysis, a non-informative
+  $\rho \sim \mathrm{Uniform}(0,1)$ prior was also considered to assess whether
+  posterior spatial dependence was mainly driven by the informative prior.
+
+* **Clustering only the regression coefficients:** In the main BSTC-DP model,
+  municipalities are clustered jointly according to
+  $\boldsymbol{\phi}_s=(\boldsymbol{\beta}_s,\xi_s)$. An alternative
+  specification applies the Dirichlet Process only to
+  $\boldsymbol{\beta}_s$, while $\xi$ is estimated as a single global temporal
+  persistence parameter. This sensitivity analysis assesses whether the large
+  number of inferred clusters is primarily induced by municipality-specific
+  temporal persistence.
+
+* **Dispersion of the DP base distribution:** The baseline DP uses
+  $\boldsymbol{\beta}^*_k \sim \mathcal{N}(\mathbf{0},I)$. A more concentrated
+  base distribution,
+  $\boldsymbol{\beta}^*_k \sim \mathcal{N}(\mathbf{0},0.25I)$,
+  was considered, reducing the prior standard deviation of each cluster-specific
+  coefficient from 1 to 0.5. This tests whether allowing highly dispersed
+  cluster-specific regression profiles contributes to excessive partition
+  fragmentation.
+
+* **Dirichlet Process concentration prior:** Because the expected number of
+  clusters under a Dirichlet Process depends on both the concentration parameter
+  $\alpha_{DP}$ and the number of areal units, the prior on $\alpha_{DP}$ was
+  recalibrated for the municipal setting. In addition to the original
+  $\mathrm{Gamma}(3,2)$ specification, more parsimonious priors were considered,
+  including calibrations targeting approximately the same prior expected number
+  of clusters as in the provincial application and a stronger sensitivity
+  targeting $E[K_S] \approx 4$.
+
+These analyses are used as robustness checks rather than as additional competing
+models. Their main purpose is to determine whether strong spatial dependence or
+the high fragmentation observed in the BSTC-DP specification can be attributed
+to individual prior choices rather than to the likelihood and model structure.
 ---
 
 ## 📁 Repository Structure

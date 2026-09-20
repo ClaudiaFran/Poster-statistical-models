@@ -119,10 +119,8 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 │   ├── 10_mappa_tasso_comuni.png         # Municipal net migration rate maps
 │   ├── 11_boxplot_tasso_urbanizzazione.png # Migration rate by DEGURBA classification
 │   └── 17_moran_tasso_migratorio.png     # Trajectory of global Moran's I over time
-├── Code/                                  # R scripts for data processing and analysis
-│   ├── 01_main.R                         # Data harmonisation and feature engineering
-│   ├── 02_descr_final.R                  # Descriptive and spatial exploratory analysis
-│   └── 03_stationarity.R                 # Panel unit root tests (CADF & CIPS bootstrap)
+|
+├── Poster.pdf                             # PDF document of the A1 poster
 ├── main_01.tex                            # LaTeX Beamer source code for the A1 poster
 └── README.md                              # Project documentation
 ```

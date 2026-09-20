@@ -36,9 +36,9 @@ These figures illustrate the temporal behavior of the model and its ability to r
 
 ## 3. Spatio-temporal latent field
 
-![Latent field by municipality](23_mappa_w_comuni.jpg)
+![Latent field by municipality](23_mappa_w_comuni.png)
 
-### `21_mappa_w_regioni.jpg`, `22_mappa_w_province.jpg`, and `23_mappa_w_comuni.jpg`
+### `21_mappa_w_regioni.png`, `22_mappa_w_province.png`, and `23_mappa_w_comuni.png`
 
 These maps visualize the mean spatio-temporal latent field estimated by the model, aggregated at the regional, provincial, and municipal levels. 
 

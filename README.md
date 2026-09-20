@@ -184,6 +184,8 @@ These analyses are used as robustness checks rather than as additional competing
 models. Their main purpose is to determine whether strong spatial dependence or
 the high fragmentation observed in the BSTC-DP specification can be attributed
 to individual prior choices rather than to the likelihood and model structure.
+
+
 ---
 
 ## 📁 Repository Structure

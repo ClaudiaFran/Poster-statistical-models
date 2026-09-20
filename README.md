@@ -50,22 +50,22 @@ standardized using common national means and standard deviations.
 
 ### 1. Areal Topology & Leroux Spatial Precision matrix
 The Italian municipal system is represented as an irregular areal contiguity network $W$ on harmonized 2024 borders ($|V| = 7{,}896$ municipalities, $|E| = 22{,}609$ undirected edges, average degree $\bar{d} = 5.73$ neighbors; 14 island municipalities are retained as natural isolated nodes without artificial marine links):
-$$W_{ij} = \begin{cases} 1, & \text{if } i \text{ and } j \text{ share a terrestrial boundary}, \\ 0, & \text{otherwise}. \end{cases}$$
+```math W_{ij} = \begin{cases} 1, & \text{if } i \text{ and } j \text{ share a terrestrial boundary}, \\ 0, & \text{otherwise}. \end{cases} ```
 
 Spatial precision is parameterized via the **proper Leroux CAR** specification:
-$$Q_S(\rho) = \rho(D - W) + (1 - \rho)I_S, \qquad \rho \in (0, 1), \quad D_{ii} = \sum_j W_{ij}$$
+```math Q_S(\rho) = \rho(D - W) + (1 - \rho)I_S, \qquad \rho \in (0, 1), \quad D_{ii} = \sum_j W_{ij} ```
 
 ### 2. Global Spatio-Temporal Backbone (M1)
 The standardized municipal response is decomposed into fixed covariate effects, a **national temporal component**, a **spatio-temporal latent field**,
 and Gaussian residual error:
-$$y_{st}^* = \alpha + \mathbf{x}_{st}^{*\prime}\bm{\beta} + f_t + w_{st} + \epsilon_{st}, \qquad \epsilon_{st} \sim \mathcal{N}(0, \sigma_\epsilon^2)$$
+```math y_{st}^* = \alpha + \mathbf{x}_{st}^{*\prime}\bm{\beta} + f_t + w_{st} + \epsilon_{st}, \qquad \epsilon_{st} \sim \mathcal{N}(0, \sigma_\epsilon^2) ```
 
 * **Non-linear National Trend ($f_t$):** Modeled via an intrinsic first-order random walk with sum-to-zero constraint:
-  $$f_t - f_{t-1} \sim \mathcal{N}(0, \, \tau_{\mathrm{RW1}}^2), \qquad t=2,\ldots,T, \qquad \sum_{t=1}^T f_t = 0$$
+  ```math f_t - f_{t-1} \sim \mathcal{N}(0, \, \tau_{\mathrm{RW1}}^2), \qquad t=2,\ldots,T, \qquad \sum_{t=1}^T f_t = 0 ```
 * **Spatio-Temporal Latent Field ($\mathbf{w}_t$):** Follows a first-order autoregressive AR(1) transition with Leroux spatial precision:
-  $$\mathbf{w}_1 \sim \mathcal{N}\left(\mathbf{0}, \, \tau_{ST}^2 Q_S(\rho)^{-1}\right), \qquad \mathbf{w}_t \mid \mathbf{w}_{t-1} \sim \mathcal{N}\left(\xi \mathbf{w}_{t-1}, \, \tau_{ST}^2 Q_S(\rho)^{-1}\right), \quad t=2,\ldots,T$$
+  ```math \mathbf{w}_1 \sim \mathcal{N}\left(\mathbf{0}, \, \tau_{ST}^2 Q_S(\rho)^{-1}\right), \qquad \mathbf{w}_t \mid \mathbf{w}_{t-1} \sim \mathcal{N}\left(\xi \mathbf{w}_{t-1}, \, \tau_{ST}^2 Q_S(\rho)^{-1}\right), \quad t=2,\ldots,T ```
   yielding the separable Kronecker-structured joint precision matrix over $\mathbb{R}^{ST}$:
-  $$Q_{ST}(\rho, \xi, \tau_{ST}^2) = \frac{1}{\tau_{ST}^2} Q_T(\xi) \otimes Q_S(\rho)$$
+  ```math Q_{ST}(\rho, \xi, \tau_{ST}^2) = \frac{1}{\tau_{ST}^2} Q_T(\xi) \otimes Q_S(\rho) ```
 
 ### 3. Model Benchmark & Strategies
 We benchmark the global backbone against alternative paradigms:

@@ -20,22 +20,22 @@
 
 This repository contains the scientific poster, exploratory figures, and modeling workflow for studying the spatio-temporal dynamics of **municipal net migration in Italy** using a nationwide panel covering 16 consecutive years:
 * **$S = 7{,}896$ municipalities** (harmonized according to 2024 administrative borders)
-* **$T = 16$ years** ($2004$–$2019$)
+* **$T = 16$ years** ($2004–2019$)
 * **$N = 126{,}336$ municipality–year observations**
 
 The response variable is the globally standardized municipal **net migration rate per 1,000 residents**:
 $$y_{st} = 1{,}000 \times \frac{\text{Net Migration}_{st}}{\text{Resident Population}_{st}}$$
 
 ### Main Research Questions:
-1. Which demographic, economic, and territorial characteristics are most strongly associated with Italian municipal net migration?
-2. What local spatial structure and temporal persistence govern net migration at the municipal scale?
-3. Is a common national parameterization sufficient, or does territorial partitioning reveal meaningful local heterogeneity?
+1. How are demographic, economic, and territorial characteristics associated with Italia nmunicipal net migration?
+2. What local spatial variation and temporal persistence emerge in net migration at the italian municipal scale?
+3. Does allowing for local heterogeneity reveal spatially varying covariate associations beyond a common national specification?
 
 ---
 
 ## 🔬 Methodological Framework
 
-### 1. Areal Topology & Leroux Spatial Precision
+### 1. Areal Topology & Leroux Spatial Precision matrix
 The Italian municipal system is represented as an irregular areal contiguity network $W$ on harmonized 2024 borders ($|V| = 7{,}896$ municipalities, $|E| = 22{,}609$ undirected edges, average degree $\bar{d} = 5.73$ neighbors; 14 island municipalities are retained as natural isolated nodes without artificial marine links):
 $$W_{ij} = \begin{cases} 1, & \text{if } i \text{ and } j \text{ share a terrestrial boundary}, \\ 0, & \text{otherwise}. \end{cases}$$
 

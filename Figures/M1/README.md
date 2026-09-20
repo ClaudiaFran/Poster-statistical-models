@@ -12,7 +12,7 @@ The figures describe the average national covariate associations, structural tem
 
 ![Fixed effects estimates](24_forest_plot_fissi.png)
 
-### `24_forest_plot_fissi.png` and `25_iperparametri_tabella.png`
+![Hyperparameters](25_iperparametri_tabella.png)
 
 These figures report the posterior means and 95% credible intervals for the global fixed effects and model hyperparameters.
 
@@ -25,7 +25,8 @@ These figures report the posterior means and 95% credible intervals for the glob
 
 ![Temporal RW1 effect](20_temporal_rw1_effect.png)
 
-### `20_temporal_rw1_effect.png` and `26_trend_temporale_fit.png`
+![Model fit](26_trend_temporale_fit.png)
+
 
 These figures illustrate the temporal behavior of the model and its ability to replicate observed national trends:
 
@@ -38,7 +39,10 @@ These figures illustrate the temporal behavior of the model and its ability to r
 
 ![Latent field by municipality](23_mappa_w_comuni.png)
 
-### `21_mappa_w_regioni.png`, `22_mappa_w_province.png`, and `23_mappa_w_comuni.png`
+![Latent field by province](22_mappa_w_province.png)
+
+![Latent field by municipality](23_mappa_w_comuni.png)
+
 
 These maps visualize the mean spatio-temporal latent field estimated by the model, aggregated at the regional, provincial, and municipal levels. 
 
@@ -50,7 +54,9 @@ The field successfully captures unobserved spatial heterogeneity, revealing intr
 
 ![Residuals time trend](28_residuals_time_trend.png)
 
-### `27_insample_metrics_table.png`, `28_residuals_time_trend.png`, and `29_morans_i_residuals.png`
+![Residuals time trend](28_residuals_time_trend.png)
+
+![Morans I residuals](29_morans_i_residuals.png)
 
 This section evaluates the in-sample performance and the validity of the spatial assumptions:
 

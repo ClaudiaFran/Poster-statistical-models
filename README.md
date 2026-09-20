@@ -130,7 +130,7 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 ├── Poster.pdf                            # Final A1 scientific poster
 ├── main_poster.tex                       # LaTeX source code for the poster
 └── README.md                             # Main project documentation
-
+```
 
 ---
 
@@ -159,4 +159,4 @@ The scripts and models are executed in **R (>= 4.4)**. Key packages include:
 For inquiries regarding the code, methodology, or results:
 * **Claudia Franceschini**: [claudia.franceschini@phd.unipd.it](mailto:claudia.franceschini@phd.unipd.it)
 * **Sophie Grace Parolin**: [sophiegrace.parolin@phd.unipd.it](mailto:sophiegrace.parolin@phd.unipd.it)
-* **Teresa Secco**: [teresa.secco@phd.unipd.it](mailto:teresa.secco@unive.it)
+* **Teresa Secco**: [teresa.secco@unive.it](mailto:teresa.secco@unive.it)

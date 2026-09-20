@@ -25,14 +25,14 @@ This repository contains the scientific poster, exploratory figures, and modelin
 
 The response is the municipal **net migration rate per 1,000 residents**:
 
-$$
+```math
 y_{st}
 =
 1{,}000
 \times
-\frac{\text{Net Migration}_{st}}
-{\text{Resident Population}_{st}}.
-$$
+\frac{\mathrm{Net\ Migration}_{st}}
+{\mathrm{Resident\ Population}_{st}}
+```
 
 For model estimation, the response and continuous covariates are globally
 standardized using common national means and standard deviations.

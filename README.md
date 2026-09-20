@@ -23,14 +23,27 @@ This repository contains the scientific poster, exploratory figures, and modelin
 * **$T = 16$ years** ($2004–2019$)
 * **$N = 126{,}336$ municipality–year observations**
 
-The response variable is the globally standardized municipal **net migration rate per 1,000 residents**:
-$$y_{st} = 1{,}000 \times \frac{\text{Net Migration}_{st}}{\text{Resident Population}_{st}}$$
+The response is the municipal **net migration rate per 1,000 residents**:
 
-### Main Research Questions:
-1. How are demographic, economic, and territorial characteristics associated with Italia nmunicipal net migration?
+$$
+y_{st}
+=
+1{,}000
+\times
+\frac{\text{Net Migration}_{st}}
+{\text{Resident Population}_{st}}.
+$$
+
+For model estimation, the response and continuous covariates are globally
+standardized using common national means and standard deviations.
+
+### Main Research Questions
+
+1. How are demographic, economic, and territorial characteristics associated with Italian municipal net migration?
+
 2. What local spatial variation and temporal persistence emerge in net migration at the italian municipal scale?
-3. Does allowing for local heterogeneity reveal spatially varying covariate associations beyond a common national specification?
 
+3. Does allowing for local heterogeneity reveal spatially varying covariate associations beyond a common national specification?
 ---
 
 ## 🔬 Methodological Framework
@@ -43,7 +56,8 @@ Spatial precision is parameterized via the **proper Leroux CAR** specification:
 $$Q_S(\rho) = \rho(D - W) + (1 - \rho)I_S, \qquad \rho \in (0, 1), \quad D_{ii} = \sum_j W_{ij}$$
 
 ### 2. Global Spatio-Temporal Backbone (M1)
-The standardized municipal response is decomposed into fixed covariate effects, a **non-linear national temporal trend**, a **spatio-temporal latent field**, and Gaussian measurement error:
+The standardized municipal response is decomposed into fixed covariate effects, a **national temporal component**, a **spatio-temporal latent field**,
+and Gaussian residual error:
 $$y_{st}^* = \alpha + \mathbf{x}_{st}^{*\prime}\bm{\beta} + f_t + w_{st} + \epsilon_{st}, \qquad \epsilon_{st} \sim \mathcal{N}(0, \sigma_\epsilon^2)$$
 
 * **Non-linear National Trend ($f_t$):** Modeled via an intrinsic first-order random walk with sum-to-zero constraint:
@@ -57,11 +71,10 @@ $$y_{st}^* = \alpha + \mathbf{x}_{st}^{*\prime}\bm{\beta} + f_t + w_{st} + \epsi
 We benchmark the global backbone against alternative paradigms:
 * **M1 (INLA Global)**: Fast approximate Bayesian inference via Integrated Nested Laplace Approximations with an RW(1) trend and AR(1)$\times$CAR field.
 * **M2 (MCMC Global)**: Custom Metropolis-within-Gibbs sampler adapted from Mozdzen et al. (2022) (20,000 iterations, 10,000 burn-in, thinning = 10).
-* **M3 (Partitioned Overlap INLA)**: 107 province-specific submodels including first-order adjacent municipalities to eliminate border artifacts (Orozco-Acosta et al., 2023).
+* **M3 (Partitioned Overlap INLA)**: 107 province-specific submodels including first-order neighbouring municipalities to reduce boundary effects (Orozco-Acosta et al., 2023).
 * **M4 (Partitioned Disjoint INLA)**: 107 strictly disjoint provincial models.
 * **M5 (BSTC-DP Clustering)**: Bayesian nonparametric Dirichlet Process clustering on municipal parameters $\bm{\phi}_s = (\bm{\beta}_s, \xi_s)$ (Mozdzen et al., 2022).
 * **M6 (Administrative Hierarchical Baseline)**: Regional and provincial IID effects with a national AR(1) trend, without areal graph topology.
-
 ---
 
 ## 📊 Key Results & Findings
@@ -79,7 +92,7 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 | **M6** | **Admin IID** | 13.77 | 8.90 | **0.972** | 88.33 | ~1 min | 1.9 GiB |
 
 * $\text{IS}_{95}$: Interval Score at 95% (lower values indicate sharper, well-calibrated predictive intervals).
-* **M1/M2** yield the highest point prediction accuracy (lowest RMSE/MAE), while **M3** achieves the sharpest interval predictions.
+* **M1/M2** provide the lowest RMSE and MAE, while **M3** achieves the lowest 95% interval score, indicating the best overall trade-off between predictive interval width and coverage among the compared specifications.
 
 ### 2. Global Model (M1) Posterior Estimates
 
@@ -92,11 +105,17 @@ Evaluated across two rolling-origin one-year-ahead out-of-sample folds ($2004\te
 | $\tau^2_{\mathrm{RW1}}$ | Random walk trend variance | **0.1808** | 0.0809 | 0.0562 | 0.3636 |
 
 ### 3. Substantive Insights
-* **Non-linear National Evolution:** The RW(1) trend $f_t$ captures a major macroeconomic contraction: migration rates peaked in 2007, dropped sharply following the 2008 financial crisis, crossed zero around 2010, and continued downward through 2019.
-* **Labor-Market Attraction:** The municipal employment rate exhibits the strongest positive association with net migration ($\hat{\beta} = +0.250$), followed by mean age ($\hat{\beta} \approx +0.075$) and population density changes ($\hat{\beta} \approx +0.045$).
-* **Structural Repulsion:** Deficits in essential services access ($\hat{\beta} = -0.053$), foreign-resident share fluctuations ($\hat{\beta} = -0.042$), and unemployment ($\hat{\beta} = -0.026$) consistently drive net outflows.
-* **Residual Cleanliness:** Annual residual Moran's $I$ remains slightly negative ($-0.07$ to $-0.03$, one-sided $p \approx 1$), confirming that the Leroux CAR field successfully absorbs all spatial autocorrelation without residual leakage.
-* **Territorial Heterogeneity (M3):** While employment is positively associated with net migration nationwide, local province-level estimates show substantial variation in both magnitude and sign across Italian provinces.
+
+* **National temporal evolution:** Exploratory temporal patterns suggested a marked change in the overall migration level around the years of the 2008 financial crisis. For this reason, we included a national RW(1) component to flexibly capture common year-to-year variation shared across municipalities, without forcing this variation into the covariate effects or the local spatio-temporal field.
+
+* **Employment and net migration:** The municipal employment rate shows the strongest positive national association with net migration
+  ($\hat{\beta} \approx +0.250$). Positive associations are also estimated for mean age and population density growth.
+
+* **Negative national associations:** Greater difficulty in accessing essential services and changes in the foreign-resident share are negatively associated with net migration under the global specification. 
+
+* **Residual spatial structure:** Annual residual Moran's $I$ remains slightly negative ($-0.07$ to $-0.03$, one-sided $p \approx 1$), providing no evidence of remaining positive spatial autocorrelation after fitting the global model. This suggests that the Leroux CAR component captures the dominant spatial dependence.
+
+* **Territorial heterogeneity (M3):** The positive association between employment and net migration is broadly stable across provinces, although its magnitude varies locally. Several other covariates show substantially greater territorial heterogeneity, including changes in magnitude and, in some areas, in sign.
 
 ---
 

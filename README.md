@@ -222,7 +222,8 @@ to individual prior choices rather than to the likelihood and model structure.
 
 ## 💻 Computational Environment & Requirements
 
-The scripts and models are executed in **R (>= 4.4)**. Key packages include:
+The scripts and models are executed in **R (>= 4.4)**. The coding part has been AI assisted. 
+Key R packages include:
 * **Bayesian inference**: `INLA` ([R-INLA project](https://www.r-inla.org/))
 * **Spatial data & GIS**: `sf`, `giscoR`, `spdep`
 * **Data wrangling & Visualization**: `tidyverse` (`dplyr`, `tidyr`, `ggplot2`), `patchwork`, `scales`, `RColorBrewer`

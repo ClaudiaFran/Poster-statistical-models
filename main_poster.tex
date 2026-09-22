@@ -375,7 +375,7 @@ f_t-f_{t-1}
 \right),
 \]
 \[
-\mathbf{w}t\mid\mathbf{w}{t-1}
+\mathbf{w}_t\mid\mathbf{w}_{t-1}
 \sim
 \mathcal{N}\!\left(
 \xi\mathbf{w}_{t-1},
@@ -406,13 +406,13 @@ where $Q_T(\xi)$ is the sparse tridiagonal precision induced by the first-order 
 
 \vspace{0.5cm}
 Following Mozdzen et al.\ (2022), fixed effects have
-$\mathcal{N}(0,1)$ priors; the added post-2008 effect uses the same prior.
+$\mathcal{N}(0,1)$ priors.
 $\sigma_\epsilon^2,\tau_{ST}^2\sim\mathrm{IG}(3,2)$;
 $\rho\sim\mathrm{Beta}(6,1)$;
 $\xi\sim\mathrm{Unif}(-1,1)$.
 \end{block}
 
-\smallgap
+\vspace{0.5cm}
 
 %------------------------------------------------------------------------------
 \begin{block}{5. Alternative modeling strategies}
@@ -442,8 +442,10 @@ $G_0=\mathcal{N}(\mathbf{0},I)\times U(-1,1)$ is the base distribution, allowing
 without using the municipal adjacency graph $W$.
 
 \end{itemize}
-
 \end{block}
+
+\vspace{0.5cm}
+
 %------------------------------------------------------------------------------
 \begin{block}{6. Out-of-sample model comparison}
 
@@ -545,9 +547,7 @@ M1/M2 estimate common national covariate associations, while municipality-level 
 
 \begin{itemize}
     \item \textbf{Attraction factors:}
-    employment rate shows the strongest positive association with net migration
-    ($\hat{\beta}=+0.250$), followed by population-density growth
-    ($\hat{\beta}=+0.074$).
+    employment rate shows the strongest positive association with net migrationb($\hat{\beta}=+0.250$), followed by mean age ($\hat{\beta}=+0.074$).
 
     \item \textbf{Repulsion factors:}
     service inaccessibility ($\hat{\beta}=-0.053$), changes in the foreign-resident share
